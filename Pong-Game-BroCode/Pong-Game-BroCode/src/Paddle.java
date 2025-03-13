@@ -3,22 +3,20 @@ import java.awt.event.*;
 import java.util.*; // ← I doubt importing everything will be worth it perf wise, but I mean come on it's a pong game
 import javax.swing.*;
 
-public class Ball extends Rectangle {
+public class Paddle extends Rectangle {
 
-    Random random;
-
-    // ball speeds
-    int xVelocity;
-    int yVelocity;
-
-    public Ball() {
+    public Paddle() {
     }
 
-    public void setXDirection(int randomXDirection) {
+    public void keyPressed(KeyEvent e) {
 
     }
 
-    public void setYDirection(int randomYDirection) {
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    public void setYDirection(int yDirection) {
 
     }
 
@@ -29,5 +27,4 @@ public class Ball extends Rectangle {
     public void draw(Graphics g) {
 
     }
-
 }

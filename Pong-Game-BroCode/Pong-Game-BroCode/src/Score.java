@@ -5,11 +5,6 @@ import javax.swing.*;
 
 public class Score extends Rectangle {
 
-    static int GAME_WIDTH;
-    static int GAME_HEIGHT;
-    int player1; // p1 score
-    int player2; // p2 score
-
     public Score() {
     }
 

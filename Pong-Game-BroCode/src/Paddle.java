@@ -5,6 +5,9 @@ import javax.swing.*;
 
 public class Paddle extends Rectangle {
 
+    int id; // will be 1 for player 1, 2 for player 2
+    int yVelocity; // speed of the paddle
+
     public Paddle() {
     }
 

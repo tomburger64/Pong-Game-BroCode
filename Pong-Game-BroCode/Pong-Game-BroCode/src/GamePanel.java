@@ -14,31 +14,13 @@ public class GamePanel extends JPanel implements Runnable {
     * (didn't sound so bad until I thought about something like 8 quintillion)
     *
     * Also when using final always capitalize the var name (just a convention)
-    * value is in pixels
     */
     static final int GAME_WIDTH = 1000;
     
     // GAME_HEIGHT ↓ :
     // (int) means it's cutting of the decimal part of the var so that it keeps being an int
     // this calculation is to keep the ratio of an irl ping pong table
-    static final int GAME_HEIGHT = (int)(GAME_WIDTH * (5.0/9));
-
-    // I wonder why the tutorial doesn't put values directly into this ↓ instead of making vars for it above ↑
-    static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
-
-    static final int BALL_DIAMETER = 20;
-    static final int PADDLE_WIDTH = 25;
-    static final int PADDLE_HEIGHT = 100;
-
-    // empty vars that only accept object type values ↓
-    Thread gameThread;
-    Image image;
-    Graphics graphics;
-    Random random;
-    Paddle paddle1; // player 1
-    Paddle paddle2; // player 2
-    Ball ball;
-    Score score;
+    static final int GAME_HEIGHT = (int)(GAME_WIDTH * (5/9));
 
     public GamePanel() {
     }
