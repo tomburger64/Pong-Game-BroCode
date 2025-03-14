@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
     // this calculation is to keep the ratio of an irl ping pong table
     static final int GAME_HEIGHT = (int)(GAME_WIDTH * (5.0/9));
 
-    // I wonder why the tutorial doesn't put values directly into this ↓ instead of making vars for it above ↑
+    // used in gamepanel constructor
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 
     static final int BALL_DIAMETER = 20;
@@ -41,6 +41,20 @@ public class GamePanel extends JPanel implements Runnable {
     Score score;
 
     public GamePanel() {
+        // create new paddles & ball on start
+        newPaddles();
+        newBall();
+        // create new score obj while sending the GamePanel dimensions too
+        score = new Score(GAME_WIDTH, GAME_HEIGHT);
+        this.setFocusable(true); // makes a window listen for keyboard inputs
+        this.addKeyListener(new AL());
+        this.setPreferredSize(SCREEN_SIZE);
+
+        // fist time I touch a thread
+        // a thread runs code independently (useful for listening for inputs)
+        gameThread = new Thread(this);
+        gameThread.start();
+
     }
 
     public void newBall() {
@@ -71,7 +85,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    // interclass (first time I use one)
+    // innerclass (first time I use one)
+    // manages the kb inputs
     public class AL extends KeyAdapter {
         public void keyPressed(KeyEvent e) {
 

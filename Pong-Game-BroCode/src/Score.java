@@ -10,7 +10,9 @@ public class Score extends Rectangle {
     int player1; // p1 score
     int player2; // p2 score
 
-    public Score() {
+    // My guess is we're passing the gamepanel dims so we can show the score where we want relatively
+    public Score(int GAME_WIDTH, int GAME_HEIGHT) {
+
     }
 
     public void drawScore(Graphics g) {
