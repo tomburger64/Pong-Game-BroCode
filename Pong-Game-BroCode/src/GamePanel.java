@@ -30,10 +30,10 @@ public class GamePanel extends JPanel implements Runnable {
     static final int PADDLE_WIDTH = 25;
     static final int PADDLE_HEIGHT = 100;
 
-    // empty vars that only accept object type values ↓
-    Thread gameThread;
-    Image image;
-    Graphics graphics;
+    // empty object type vars ↓
+    Thread gameThread; // a thread runs code independently (useful for listening for inputs)
+    Image image; // is used for "drawing" everything before showing it on screen
+    Graphics graphics; // is like a paintbrush, it can draw shapes, images, text, etc, has methods for drawing the wanted stuff
     Random random;
     Paddle paddle1; // player 1
     Paddle paddle2; // player 2
@@ -51,7 +51,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(SCREEN_SIZE);
 
         // fist time I touch a thread
-        // a thread runs code independently (useful for listening for inputs)
         gameThread = new Thread(this);
         gameThread.start();
 
@@ -66,7 +65,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void paint(Graphics g) {
-
+        image = createImage(getWidth(), getHeight()); // using methods instead of the vars in case the gamepanel size was automatically adjusted (probably due to OS I guess ?)
+        graphics = image.getGraphics();
+        draw(graphics);
+        g.drawImage(image, 0, 0, this);
     }
 
     public void draw(Graphics g) {
@@ -82,7 +84,25 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void run() {
+        // game loop, updates positions, collisions, etc, also refreshes the screen
+        // long type is like an int but can store bigger value
+        long lastTime = System.nanoTime(); // gets the current time ("nano", so really precisely ig)
 
+        double amountOfTicks = 60.0; // update the game at 60 fps
+        double ns = 1000000000 / amountOfTicks; // how many nanoseconds per frame
+        double delta = 0; // used to track when the update should happen
+        while(true) {
+            long now = System.nanoTime(); // gets current time in nanoseconds
+            delta += (now -lastTime)/ns; // add the time difference to delta (between first nanotime measurement and the lastly run one)
+            lastTime = now; // update the lastTime
+
+            if (delta >= 1) { // if enough time has passed for an update
+                move(); // updates objects positions
+                checkCollision(); // updates collisions
+                repaint(); // redraws the screen
+                delta--; // not exactly but resets delta to 0
+            }
+        }
     }
 
     // innerclass (first time I use one)
